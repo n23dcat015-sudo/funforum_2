@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funforum</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<style>
+    * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+
+    :root {
+        --lime: #b9ef00;
+        --lime-dark: #6ea000;
+        --pink: #ff4b9b;
+        --ink: #526600;
+        --line: #88a819;
+        --cream: #fffdf3;
+    }
+
+
+    body {
+        background-color: #fffdf3;
+        color: #800000;
+        font-size: 13px;
+        font-family: "MS PGothic", "Sawarabi Gothic", "Hiragino Kaku Gothic Pro", sans-serif;
+    }
+
+    a {
+        text-decoration: none;
+        color: #0000ff;
+    }
+
+    a:hover {
+        color: #ff3990;
+    }
+
+    .bold-link {
+        font-weight: bold;
+    }
+
+    .page {
+        width: 800px;
+        margin: 0 auto;
+        border: 1px solid black;
+    }
+
+    .logo {
+        margin: 0;
+        padding-top: 10px;
+        padding-bottom: 70px;
+        text-align: center;
+        background: linear-gradient(to bottom,
+                #ffb04b 0%,
+                #ffb04b 24%,
+                #ffd38c 24%,
+                #ffd38c 38%,
+                #fff0d0 38%,
+                #fff0d0 50%,
+                #fffaf0 50%,
+                #fffaf0 100%);
+    }
+
+    .logo-text {
+        display: inline-block;
+        transform: rotate(-3deg);
+        color: #efff00;
+        font-size: 38px;
+        font-weight: bold;
+        text-shadow: 0.5px 0.5px 0px #fff,
+            -0.5px -0.5px 0px #fff,
+            0.5px -0.5px 0px #fff,
+            -0.5px 0.5px 0px #fff;
+    }
+
+    .title {
+        font-size: 20px;
+        color: red;
+        font-weight: bold;
+        margin-left: 5px;
+        border: 2px solid black;
+        background-color: var(--lime);
+    }
+
+    .content {
+        display: flex;
+        flex-direction: column;
+        margin: 10px 5px 15px 20px;
+        line-height: 2.8;
+
+    }
+
+    .long-content {
+        line-height: 1.5;
+    }
+
+    .note {
+        color: red;
+        font-weight: bold;
+
+    }
+
+
+    ul {
+        margin-left: 30px;
+        line-height: 1.5;
+    }
+</style>
+
+<body>
+    <h1 class="logo">
+        <span class="logo-text">ニャー</span>
+    </h1>
+
+    <div class="page">
+        <div class="title">
+            Contact
+        </div>
+
+        <div class="content">
+            <p>Thank you for your interest in contacting 4chan!</p>
+
+            <div class="long-content">
+                Before proceeding, please ensure that your question hasn't already been answered on the <span><a
+                        href="faq.html"> Frequently Asked Questions </a></span>
+                or <span><a href="faq.html"> Feedback </a></span> pages.
+                Additional pages you might find useful include:
+                <span><a href="faq.html"> News </a></span>,
+                <span><a href="faq.html"> Rules </a></span>,
+                <span><a href="faq.html"> Advertise</a></span>,
+                and <span><a href="faq.html"> Press</a></span>.
+            </div>
+
+            <p>Due to the high volume of e-mail we receive, we may not be able to respond to your inquiry immediately.</p>
+            
+            <p class="note">
+                NOTE: Unban requests are not accepted via e-mail. All unban requests will be ignored. Appeal your ban using the built-in form!
+            </p>
+
+            <hr class="divider">
+
+            via email
+            <br>
+            <ul class="contact-list">
+                <li><span><a href="#">Advertising</a></span> Inquiries: <span><a href="#">advertise@4chan.org</a></span>
+                    [Or use our <span><a href="#">Self-Serve</a></span> option!]</li>
+                <li>Business Development: <span><a href="#">bizdev@4chan.org</a></span></li>
+                <li>DMCA Notice: See our <span><a href="#">DMCA Policy.</a></span>.</li>
+            </ul>
+            <br>
+
+            via contact form
+            <br>
+            <ul class="contact-list">
+                <li>Ban Appeals: Use the <span><a href="#">Ban Appeal</a></span> Unban requests are not accepted via
+                    <span><a href="#">e-mai</a>l</span>.</li>
+                <li>General Support & Bug Reports: Use our <span><a href="#">Feedback page</a></span>.</li>
+            </ul>
+
+            via X (Twitter)
+            <br>
+            <ul class="contact-list">
+                <li><span><a href="#">@nyaachan</a></span></li>
+            </ul>
+
+        </div>
+    </div>
+</body>
+
+</head>
+
+</html>

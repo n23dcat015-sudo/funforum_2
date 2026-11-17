@@ -1,0 +1,9 @@
+/* Reset tối giản cho Giai đoạn 1. Sẽ thay bằng bộ style retro đầy đủ
+   (variables.css, base.css, layout.css...) ở Giai đoạn 5 — current_state.md mục 7.2. */
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+}

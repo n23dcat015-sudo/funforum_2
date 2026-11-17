@@ -1,0 +1,534 @@
+.content-stack {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.page-card {
+  background: var(--panel);
+  border: 1px solid var(--black);
+  padding: 14px;
+}
+
+.section-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.8rem;
+  margin-bottom: 1rem;
+}
+
+.inline-form {
+  display: grid;
+  gap: 0.9rem;
+  max-width: 520px;
+}
+
+.field {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.field label {
+  font-weight: 700;
+}
+
+.field input,
+.field textarea,
+.field select {
+  width: 100%;
+  min-height: 36px;
+  border: 1px solid var(--black);
+  padding: 6px 8px;
+  background: var(--pure-white);
+}
+
+.field textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.stat-box {
+  background: var(--panel);
+  border: 1px solid var(--black);
+  padding: 12px;
+}
+
+.notice {
+  border-left: 6px solid var(--pink);
+  background: var(--notice-bg);
+  padding: 10px 12px;
+  font-weight: 600;
+}
+
+.account-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.account-box {
+  background: var(--panel);
+  border: 1px solid var(--black);
+  padding: 12px;
+}
+
+.list-links {
+  display: grid;
+  gap: 0.5rem;
+}
+
+.list-links a {
+  color: var(--text-link);
+  font-weight: 700;
+}
+
+.search-bar,
+.pagination,
+.control-field,
+.author-label,
+.notification-link,
+.text-button {
+  display: inline-flex;
+  align-items: center;
+}
+
+.search-bar,
+.pagination {
+  gap: 8px;
+}
+
+.search-bar input {
+  flex: 1;
+  min-width: 0;
+}
+
+.search-bar input,
+.control-field select {
+  min-height: 34px;
+  border: 1px solid var(--black);
+  background: var(--pure-white);
+  padding: 4px 8px;
+}
+
+.search-bar button,
+.pagination button,
+.text-button {
+  border: 1px solid var(--lime-dark);
+  background: var(--lime);
+  color: var(--black);
+  padding: 4px 8px;
+}
+
+.control-field {
+  gap: 6px;
+}
+
+.author-label {
+  gap: 6px;
+}
+
+.capcode-badge {
+  border: 1px solid var(--lime-dark);
+  background: var(--lime);
+  color: var(--ink);
+  padding: 0 4px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.plain-content {
+  white-space: pre-wrap;
+  overflow-wrap: anywhere;
+}
+
+.character-count-field {
+  display: grid;
+  gap: 4px;
+}
+
+.character-count-field small {
+  justify-self: end;
+}
+
+.notification-link {
+  white-space: nowrap;
+}
+
+.image-upload,
+.upload-previews,
+.nested-replies {
+  display: grid;
+  gap: 8px;
+}
+
+.file-picker {
+  display: inline-flex;
+  width: fit-content;
+  cursor: pointer;
+  border: 1px solid var(--lime-dark);
+  background: var(--lime);
+  padding: 5px 8px;
+}
+
+.file-picker input {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+}
+
+.upload-previews {
+  list-style: none;
+}
+
+.upload-previews li {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  border: 1px solid var(--black);
+  padding: 6px;
+}
+
+.upload-previews img {
+  width: 52px;
+  height: 52px;
+  object-fit: cover;
+}
+
+.upload-previews button {
+  margin-left: auto;
+}
+
+.attachment-image {
+  display: inline-block;
+  max-width: 100%;
+  border: 1px solid var(--black);
+  background: var(--pure-white);
+  padding: 2px;
+}
+
+.attachment-figure {
+  display: grid;
+  width: fit-content;
+  max-width: 100%;
+  gap: 4px;
+}
+
+.attachment-figure figcaption {
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.attachment-image img {
+  width: auto;
+  max-width: 100%;
+  max-height: 500px;
+}
+
+.attachment-image.expanded img {
+  max-height: none;
+}
+
+.nested-reply {
+  border-left: 2px solid var(--lime-dark);
+  padding-left: 10px;
+}
+
+.field-error {
+  color: var(--deep-red);
+  font-weight: bold;
+}
+
+.form-note {
+  margin-top: 12px;
+}
+
+.google-signin {
+  margin-top: 12px;
+}
+
+.pagination {
+  justify-content: center;
+  margin: 14px 0;
+}
+
+.session-loading {
+  padding: 16px;
+}
+
+.board-heading,
+.board-controls,
+.thread-preview-head,
+.reply-head,
+.thread-preview-actions,
+.reply-actions,
+.notification-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 10px;
+}
+
+.board-heading {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 10px;
+}
+
+.board-heading h2,
+.board-heading p {
+  margin-bottom: 4px;
+}
+
+.board-controls {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  padding: 8px 0;
+}
+
+.thread-preview,
+.thread-original,
+.reply-card {
+  min-width: 0;
+  border: 1px solid var(--black);
+  background: var(--panel);
+  padding: 12px;
+  overflow-wrap: anywhere;
+}
+
+.thread-preview .thread-preview-title {
+  margin: 4px 0;
+  font-weight: bold;
+}
+
+.thread-preview-head,
+.reply-head {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+  font-size: 13px;
+}
+
+.thread-preview-head time,
+.reply-head time {
+  color: var(--ink);
+}
+
+.preview-replies,
+.reply-list,
+.account-page,
+.notification-page {
+  display: grid;
+  gap: 10px;
+}
+
+.preview-reply,
+.preview-child {
+  border-left: 2px solid var(--line);
+  margin: 8px 0;
+  padding: 6px 0 6px 10px;
+}
+
+.preview-reply p,
+.preview-child p {
+  margin: 4px 0;
+}
+
+.omitted-count {
+  margin: 8px 0;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.thread-preview-actions {
+  justify-content: flex-start;
+  border-top: 1px solid var(--line);
+  margin-top: 8px;
+  padding-top: 8px;
+}
+
+.thread-original h2 {
+  margin: 8px 0;
+}
+
+.reply-list .section-head {
+  border-bottom: 1px solid var(--black);
+  padding-bottom: 8px;
+}
+
+.reply-card {
+  display: grid;
+  gap: 8px;
+}
+
+.reply-hidden {
+  border-style: dashed;
+  background: var(--hidden-surface);
+}
+
+.hidden-badge {
+  display: inline-block;
+  border: 1px solid var(--pink);
+  color: var(--deep-red);
+  background: var(--cream);
+  padding: 1px 5px;
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.reply-to {
+  color: var(--pink);
+  font-weight: bold;
+}
+
+.reply-actions {
+  justify-content: flex-start;
+  flex-wrap: wrap;
+}
+
+/* Chỉ giữ nút ▲ (vote-button) có khung xanh; Reply/Delete/Hide trong hàng
+   action là text link click được, không khung. */
+.reply-actions .text-button {
+  border: 0;
+  background: none;
+  padding: 0;
+  color: var(--text-link);
+}
+
+.reply-actions .text-button:hover {
+  color: var(--text-link-hover);
+  text-decoration: underline;
+}
+
+.reply-actions .text-button.danger-action {
+  color: var(--deep-red);
+}
+
+.vote-button {
+  border: 1px solid var(--lime-dark);
+  background: var(--lime);
+  color: var(--black);
+  padding: 3px 8px;
+  font-weight: bold;
+}
+
+.danger-action {
+  color: var(--deep-red);
+}
+
+.reply-form {
+  max-width: none;
+}
+
+.check-field {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.notification-row {
+  width: 100%;
+  border: 1px solid var(--line);
+  background: var(--panel);
+  padding: 10px;
+  text-align: left;
+}
+
+.notification-row.unread {
+  border-left: 4px solid var(--pink);
+  font-weight: bold;
+}
+
+.notification-row time {
+  white-space: nowrap;
+  color: var(--ink);
+  font-size: 12px;
+}
+
+.thread-preview .attachment-figure,
+.reply-card .attachment-figure,
+.thread-original .attachment-figure {
+  margin: 8px 0;
+}
+
+.thread-preview-main,
+.thread-original-main {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-start;
+  gap: 14px;
+}
+
+/* Ảnh giữ kích thước tối đa vừa khung. Text chỉ nằm cạnh ảnh khi còn đủ
+   chiều ngang (cơ sở tối thiểu 300px của cột text); thiếu thì tự xuống dòng
+   dưới ảnh và trải rộng toàn khung — giống cách 4chan xử lý ảnh lớn. */
+.thread-preview-main .attachment-figure,
+.thread-original-main .attachment-figure {
+  flex: 0 0 auto;
+  margin: 0;
+}
+
+.thread-preview-content,
+.thread-original-content {
+  flex: 1 1 300px;
+  min-width: 0;
+}
+
+.thread-preview-content .plain-content {
+  margin-top: 4px;
+}
+
+.notification-target {
+  border-left: 4px solid var(--pink);
+  padding-left: 10px;
+  scroll-margin-top: 20px;
+}
+
+.reply-card[id],
+.nested-reply[id] {
+  scroll-margin-top: 20px;
+}
+
+@media (max-width: 600px) {
+  .board-heading,
+  .notification-row {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .board-controls > * {
+    width: 100%;
+  }
+
+  .board-controls .search-bar {
+    display: flex;
+  }
+
+  .notification-row time {
+    white-space: normal;
+  }
+}
+
+.control-field {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 13px;
+  color: var(--ink);
+}
+
+.control-field select {
+  padding: 2px 4px;
+}

@@ -1,0 +1,625 @@
+﻿/* ==========================================================================
+   Admin panel — giao diện riêng, tách khỏi layout người dùng (App.tsx / layout.css).
+   Chỉ được nạp khi vào /admin/* (xem src/admin/AdminApp.tsx).
+   Dùng lại biến màu ở styles/variables.css cho đồng bộ thương hiệu.
+   ========================================================================== */
+
+.admin-shell {
+  --panel-highlight: rgba(185, 239, 0, 0.25);
+  --admin-topbar-h: 48px;
+  --admin-sidebar-w: 210px; /* AdminLayout ghi đè bằng inline style khi kéo */
+  --admin-sidebar-anim: 0.18s ease;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--deep-red);
+}
+
+.admin-shell.is-resizing {
+  cursor: col-resize;
+  user-select: none;
+}
+
+/* --- Thanh trên cùng --- */
+.admin-topbar {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  height: var(--admin-topbar-h);
+  padding: 0 16px;
+  background: linear-gradient(var(--header-gold-2), var(--header-gold-1));
+  border-bottom: 2px solid var(--black);
+}
+
+.admin-topbar-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.admin-sidebar-toggle {
+  width: 32px;
+  height: 32px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--black);
+  background: var(--header-white);
+  color: var(--black);
+  font-size: 18px;
+  line-height: 1;
+}
+
+.admin-sidebar-toggle:hover {
+  background: var(--lime);
+}
+
+.admin-brand {
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 22px;
+  line-height: 1.2;
+  color: var(--deep-red);
+}
+
+.admin-brand small {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--black);
+}
+
+.admin-topbar-right {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 10px;
+  font-size: 13px;
+}
+
+.admin-role-badge {
+  padding: 1px 8px;
+  border: 1px solid var(--black);
+  background: var(--header-white);
+  font-weight: 600;
+}
+
+.admin-role-badge.superadmin {
+  background: var(--lime);
+}
+
+/* --- Khung nội dung: sidebar (kéo được, đóng/mở được) + vùng chính --- */
+.admin-layout {
+  flex: 1;
+  display: flex;
+  align-items: stretch;
+  position: relative;
+}
+
+.admin-sidebar {
+  position: sticky;
+  top: var(--admin-topbar-h);
+  flex: 0 0 var(--admin-sidebar-w);
+  width: var(--admin-sidebar-w);
+  height: calc(100vh - var(--admin-topbar-h));
+  height: calc(100dvh - var(--admin-topbar-h));
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  padding: 8px;
+  overflow: hidden;
+  background: var(--pure-white);
+  border-right: 1px solid var(--black);
+  transition:
+    flex-basis var(--admin-sidebar-anim),
+    width var(--admin-sidebar-anim),
+    padding var(--admin-sidebar-anim),
+    border-width var(--admin-sidebar-anim);
+}
+
+.admin-shell.is-resizing .admin-sidebar {
+  transition: none;
+}
+
+/* Đóng: thu về 0 rồi ẩn hẳn (visibility) để phím Tab không rơi vào link bị ẩn. */
+.admin-shell.sidebar-closed .admin-sidebar {
+  flex-basis: 0;
+  width: 0;
+  padding-left: 0;
+  padding-right: 0;
+  border-right-width: 0;
+  visibility: hidden;
+  transition:
+    flex-basis var(--admin-sidebar-anim),
+    width var(--admin-sidebar-anim),
+    padding var(--admin-sidebar-anim),
+    border-width var(--admin-sidebar-anim),
+    visibility 0s linear 0.18s;
+}
+
+.admin-sidebar-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid var(--black);
+  white-space: nowrap;
+}
+
+.admin-sidebar-title {
+  color: var(--deep-red);
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  font-size: 13px;
+}
+
+.admin-sidebar-close {
+  border: 1px solid transparent;
+  background: transparent;
+  color: var(--black);
+  font-size: 16px;
+  line-height: 1;
+  padding: 2px 6px;
+}
+
+.admin-sidebar-close:hover {
+  background: var(--panel-highlight);
+  border-color: var(--lime-dark);
+}
+
+.admin-nav {
+  flex: 1 1 auto;
+  min-height: 0;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.admin-nav a {
+  display: block;
+  padding: 5px 8px;
+  color: var(--black);
+  font-weight: 600;
+  border: 1px solid transparent;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.admin-nav a:hover {
+  background: var(--panel-highlight);
+}
+
+.admin-nav a.active {
+  background: var(--lime);
+  border-color: var(--lime-dark);
+}
+
+.admin-sidebar-footer {
+  border-top: 1px solid var(--black);
+  padding-top: 6px;
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+/* Tay nắm kéo ở mép phải sidebar */
+.admin-sidebar-resizer {
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  width: 6px;
+  cursor: col-resize;
+  touch-action: none;
+}
+
+.admin-sidebar-resizer:hover,
+.admin-sidebar-resizer:focus-visible,
+.admin-shell.is-resizing .admin-sidebar-resizer {
+  background: var(--lime);
+  outline: none;
+}
+
+.admin-backdrop {
+  display: none;
+}
+
+.admin-main-area {
+  flex: 1 1 auto;
+  min-width: 0;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* --- Trang đăng nhập admin --- */
+.admin-auth {
+  align-items: center;
+  justify-content: center;
+  padding: 24px 12px;
+}
+
+.admin-auth-card {
+  width: min(420px, 100%);
+  border: 2px solid var(--black);
+  background: var(--pure-white);
+  padding: 20px 22px;
+}
+
+.admin-auth-card .admin-brand {
+  justify-content: center;
+  margin-bottom: 14px;
+  font-size: 26px;
+}
+
+.admin-auth-card h2 {
+  margin-bottom: 10px;
+  font-size: 18px;
+}
+
+/* --- Màn hình nhỏ: sidebar thành ngăn kéo trượt ra từ bên trái --- */
+@media (max-width: 760px) {
+  .admin-topbar {
+    padding: 0 10px;
+  }
+
+  .admin-main-area {
+    padding: 10px;
+  }
+
+  .admin-shell .admin-sidebar,
+  .admin-shell.sidebar-closed .admin-sidebar {
+    position: fixed;
+    top: var(--admin-topbar-h);
+    left: 0;
+    bottom: 0;
+    height: auto;
+    width: min(260px, 80vw);
+    flex: none;
+    padding: 8px;
+    border-right-width: 1px;
+    z-index: 20;
+    visibility: visible;
+    transform: translateX(0);
+    box-shadow: 2px 0 8px rgba(0, 0, 0, 0.25);
+    transition: transform var(--admin-sidebar-anim), visibility 0s;
+  }
+
+  .admin-shell.sidebar-closed .admin-sidebar {
+    transform: translateX(-105%);
+    visibility: hidden;
+    box-shadow: none;
+    transition: transform var(--admin-sidebar-anim), visibility 0s linear 0.18s;
+  }
+
+  .admin-sidebar-resizer {
+    display: none;
+  }
+
+  .admin-shell.sidebar-open .admin-backdrop {
+    display: block;
+    position: fixed;
+    inset: var(--admin-topbar-h) 0 0 0;
+    z-index: 19;
+    background: rgba(0, 0, 0, 0.35);
+  }
+}
+
+/* ==========================================================================
+   Trang quản trị: bảng, form, dashboard (chuyển từ styles/pages.css)
+   ========================================================================== */
+
+.admin-page {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.admin-page .section-head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 10px;
+  padding-bottom: 6px;
+  border-bottom: 1px solid var(--black);
+}
+
+.admin-page .section-head h2 {
+  margin: 0;
+  color: var(--deep-red);
+  font-size: 20px;
+}
+
+.admin-page .hint {
+  font-size: 12px;
+  color: var(--ink);
+}
+
+.admin-form {
+  border: 1px dashed var(--lime-dark);
+  background: #f6ffe8;
+  padding: 10px 14px;
+  margin-bottom: 8px;
+}
+
+.admin-audit-filters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 14px;
+  align-items: flex-end;
+  margin-bottom: 12px;
+  padding: 10px 14px;
+  border: 1px solid var(--black);
+  background: #fffef5;
+}
+
+.admin-audit-filters .control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 140px;
+}
+
+.admin-audit-filters .control-field input,
+.admin-audit-filters .control-field select {
+  min-height: 32px;
+  padding: 4px 8px;
+  border: 1px solid var(--black);
+  background: #fff;
+}
+
+.admin-audit-filter-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  align-items: center;
+}
+
+.audit-metadata {
+  display: inline-block;
+  max-width: 280px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-size: 11px;
+  vertical-align: bottom;
+}
+
+.admin-form hr.divider {
+  border: none;
+  border-top: 1px dashed var(--lime-dark);
+  margin: 6px 0;
+}
+
+.inline-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.admin-data-table {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.admin-table-controls {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  align-items: flex-end;
+  justify-content: space-between;
+}
+
+.admin-table-controls .search-bar {
+  flex: 1 1 auto;
+  min-width: 220px;
+}
+
+.admin-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 13px;
+}
+
+.admin-table th,
+.admin-table td {
+  border: 1px solid var(--black);
+  padding: 4px 6px;
+  vertical-align: top;
+  text-align: left;
+}
+
+.admin-table thead th {
+  background: var(--panel-highlight);
+  font-weight: bold;
+}
+
+.admin-table th.sortable {
+  cursor: pointer;
+  user-select: none;
+}
+
+.admin-table th.sortable:hover {
+  background: var(--lime);
+}
+
+.sort-indicator {
+  font-size: 11px;
+  color: var(--deep-red);
+}
+
+.admin-table tbody tr:nth-child(even) {
+  background: #fbf9ef;
+}
+
+.admin-table tbody tr:hover {
+  background: var(--lime) !important;
+}
+
+.actions-col {
+  width: 200px;
+  white-space: nowrap;
+}
+
+.admin-table .actions-col .text-button,
+.admin-table .actions-col a {
+  margin-right: 6px;
+}
+
+.text-button.danger {
+  color: var(--deep-red) !important;
+  font-weight: 600;
+}
+
+.text-button.danger:hover {
+  text-decoration: underline;
+}
+
+.empty-table {
+  padding: 16px;
+  text-align: center;
+  color: var(--ink);
+  font-style: italic;
+}
+
+.status-pill {
+  display: inline-block;
+  padding: 1px 6px;
+  border: 1px solid var(--black);
+  font-weight: 600;
+  font-size: 12px;
+  text-transform: lowercase;
+}
+
+.status-pill.status-visible {
+  background: var(--lime);
+  color: var(--black);
+}
+
+.status-pill.status-hidden {
+  background: #f5b6c7;
+  color: var(--black);
+}
+
+.capcode-admin {
+  color: var(--text-link);
+  font-weight: bold;
+}
+
+@media (max-width: 700px) {
+  .admin-table {
+    font-size: 12px;
+  }
+  .admin-table th,
+  .admin-table td {
+    padding: 3px 4px;
+  }
+}
+
+/* ===== Admin panel: forms & feedback ===== */
+
+.admin-notice {
+  border: 1px solid var(--black);
+  border-left: 6px solid var(--lime-dark);
+  background: #f6ffe8;
+  padding: 8px 10px;
+  font-weight: 600;
+}
+
+.admin-notice.error {
+  border-left-color: var(--pink);
+  background: var(--notice-bg);
+  color: var(--deep-red);
+}
+
+.form-stack {
+  display: grid;
+  gap: 12px;
+}
+
+.admin-form .field {
+  gap: 4px;
+}
+
+.admin-form .field textarea {
+  min-height: 90px;
+}
+
+.checkbox-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.field.inline-field input[type='checkbox'] {
+  width: auto;
+  min-height: 0;
+}
+
+/* ===== Admin panel: dashboard ===== */
+
+.admin-dashboard {
+  gap: 14px;
+}
+
+.admin-dashboard .section-title {
+  color: var(--deep-red);
+  font-size: 15px;
+  text-transform: uppercase;
+  border-bottom: 1px dashed var(--black);
+  padding-bottom: 4px;
+  margin-bottom: 6px;
+}
+
+.admin-stat-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 10px;
+}
+
+.admin-stat-card {
+  display: grid;
+  gap: 2px;
+  border: 1px solid var(--black);
+  background: var(--panel);
+  padding: 10px 12px;
+}
+
+.admin-stat-card .stat-value {
+  font-size: 28px;
+  font-weight: bold;
+  color: var(--deep-red);
+  line-height: 1.1;
+}
+
+.admin-stat-card .stat-label {
+  font-size: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--ink);
+}
+
+.admin-quick-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+@media (max-width: 700px) {
+  .admin-stat-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}

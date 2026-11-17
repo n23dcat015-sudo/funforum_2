@@ -1,0 +1,324 @@
+﻿<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Funforum</title>
+    <link rel="stylesheet" href="./styles/base.css">
+</head>
+
+    <style>
+        :root {
+            --lime: #b9ef00;
+            --lime-dark: #6ea000;
+            --pink: #ff4b9b;
+            --ink: #526600;
+            --line: #88a819;
+            --cream: #fffdf3;
+            --red: #800000;
+            --link: #0000ff;
+            --link-hover: #ff0000;
+            --gold: #ffb04b;
+            --gold-light: #ffd38c;
+            --ivory: #fff0d0;
+            --white: #fffaf0;
+            --black: #000000;
+            --pure-white: #ffffff;
+            --logo-yellow: #efff00;
+            --footer-border: #77951c;
+            --footer-shadow: #526b1d;
+            --footer-logo: #f4ff43;
+            --footer-logo-shadow: #ff5ea8;
+            --divider: #cccccc;
+            --surface-soft: rgba(255, 255, 255, 0.3);
+            --bg: var(--cream);
+            --deep-red: var(--red);
+            --text-link: var(--link);
+            --text-link-hover: var(--link-hover);
+        }
+
+
+        body {
+            background-color: var(--cream);
+            color: var(--red);
+            font-size: 14px;
+            line-height: 1.5;
+            font-family: "MS PGothic", "Sawarabi Gothic", "Hiragino Kaku Gothic Pro", sans-serif;
+        }
+
+        a {
+            text-decoration: none;
+            color: var(--link);
+        }
+
+        a:hover {
+            color: var(--link-hover);
+        }
+
+        .bold-link {
+            font-weight: bold;
+        }
+
+        .page {
+            width: min(800px, calc(100% - 24px));
+            margin: 0 auto;
+        }
+
+        .logo {
+            margin: 0;
+            padding-top: 10px;
+            padding-bottom: 70px;
+            text-align: center;
+            background: linear-gradient(to bottom,
+                    var(--gold) 0%,
+                    var(--gold) 24%,
+                    var(--gold-light) 24%,
+                    var(--gold-light) 38%,
+                    var(--ivory) 38%,
+                    var(--ivory) 50%,
+                    var(--white) 50%,
+                    var(--white) 100%);
+        }
+
+        .logo-text {
+            display: inline-block;
+            transform: rotate(-3deg);
+            color: var(--logo-yellow);
+            font-size: 38px;
+            font-weight: bold;
+            text-shadow: 0.5px 0.5px var(--pure-white), -0.5px -0.5px var(--pure-white), 0.5px -0.5px var(--pure-white), -0.5px 0.5px var(--pure-white);
+        }
+
+        .faq-header {
+            background-color: var(--cream);
+            margin: 0 0 30px 0;
+        }
+
+        .faq-title {
+            background-color: var(--pink);
+            font-weight: bold;
+            border: 1px solid var(--black);
+            padding: 5px 10px;
+        }
+
+        .faq-welcome {
+            font-weight: bold;
+            border: 1px solid var(--black);
+            padding: 10px;
+        }
+
+        .faq-body {
+            display: flex;
+            margin: 0 0 80px 0;
+            gap: 15px;
+            flex-direction: row;
+        }
+
+        .sidebar {
+            flex: 35;
+            border: 1px solid var(--black);
+            background-color: var(--surface-soft);
+        }
+
+        .question-title {
+            color: var(--black);
+            font-weight: bold;
+            background-color: var(--lime);
+            text-align: center;
+            padding: 5px 0;
+            width: 100%;
+        }
+
+        .question-content {
+            padding: 15px 0;
+        }
+
+        .question-list {
+            list-style-type: disc;
+            list-style-position: inside;
+        }
+
+        .question-list li {
+            margin-bottom: 8px;
+        }
+
+        /* Thụt lề theo cấp bậc của danh sách câu hỏi */
+        .item-lv1 {
+            margin-left: 15px;
+        }
+
+        .item-lv2 {
+            margin-left: 30px;
+        }
+
+        .item-lv3 {
+            margin-left: 45px;
+        }
+
+        /* --- Cột Main Content --- */
+        .main-content {
+            flex: 65;
+            border: 1px solid var(--black);
+        }
+
+        .answer-title {
+            color: var(--red);
+            font-weight: bold;
+            background-color: var(--lime);
+            text-align: center;
+            padding: 5px 0;
+        }
+
+        .answer-content {
+            padding: 15px;
+        }
+
+        .answer-content h3 {
+            margin-top: 15px;
+            margin-bottom: 5px;
+            font-size: 16px;
+        }
+
+        .answer-content p {
+            margin-bottom: 15px;
+            text-align: justify;
+        }
+
+        .content-divider {
+            border: none;
+            border-top: 1px solid var(--divider);
+            margin: 20px 0;
+        }
+
+        footer {
+            /* display: grid;
+            grid-template-columns: 75px 1fr; */
+            display: flex;
+            align-items: stretch;
+            margin: 10px 0 50px;
+            padding: 7px 12px;
+            font-size: 10px;
+            border: 3px solid var(--footer-border);
+            background: var(--lime);
+            color: var(--ink);
+            text-align: center;
+            box-shadow: 1px 1px var(--footer-shadow);
+        }
+
+        footer .footer-logo {
+            /* grid-column: 1;
+            grid-row: 1 / 3; */
+            float: left;
+            text-align: left;
+            align-items: center;
+            color: var(--footer-logo);
+            font-weight: bold;
+            font-style: italic;
+            font-size: 25px;
+            font-family: Arial, sans-serif;
+            text-shadow: 1px 1px var(--footer-logo-shadow);
+        }
+
+        footer .footer-links {
+            display: flex;
+            flex: 1;
+            justify-content: center;
+            align-items: center;
+            font-size: 16px;
+            white-space: nowrap;
+            /* border: 1px solid #658000; */
+        }
+
+        footer .footer-links a {
+            display: inline-block;
+            margin: 0 10px;
+            color: var(--ink);
+            font-weight: normal;
+        }
+
+        footer .footer-links a:hover {
+            color: var(--link-hover);
+            text-decoration: none;
+        }
+
+        footer small {
+            /* grid-column: 1 / -1; */
+            display: block;
+            padding-top: 12px;
+            font-size: 12px;
+            color: var(--black);
+            font-weight: bold;
+            text-align: center;
+        }
+
+        @media (max-width: 600px) {
+            .faq-body {
+                flex-direction: column;
+            }
+
+            footer .footer-links {
+                flex-wrap: wrap;
+                white-space: normal;
+            }
+        }
+    </style>
+
+<body>
+
+    <h1 class="logo">
+        <span class="logo-text">ニャー</span>
+    </h1>
+
+    <div class="page">
+        <header class="faq-header">
+            <h3 class="faq-title">Frequently Asked Questions</h3>
+            <p class="faq-welcome">Welcome to Funforum's Frequently Asked Questions page. Please review the community rules before posting.</p>
+        </header>
+
+        <div class="faq-body">
+            <aside class="sidebar">
+                <div class="question-title">Questions</div>
+                <div class="question-content">
+                    <ul class="question-list">
+                        <li class="item-lv1"><a href="#" class="bold-link">Basics</a></li>
+                        <li class="item-lv2"><a href="#">What is Funforum?</a></li>
+                        <li class="item-lv3"><a href="#">How do I access the boards?</a></li>
+                        <li class="item-lv2"><a href="#">What should I know before I post?</a></li>
+                    </ul>
+                </div>
+            </aside>
+
+            <main class="main-content">
+                <div class="answer-title">Basics</div>
+                <div class="answer-content">
+                    <h3>What is Funforum?</h3>
+                    <p>Funforum is a community forum organized into boards. Each board focuses on a topic, and visitors can browse discussions before creating an account to participate.</p>
+
+                    <hr class="content-divider">
+
+                    <h3>How do I access the boards?</h3>
+                    <p>Choose a board from the home page to browse its threads. Sign in to create threads, reply, and manage your account.</p>
+                </div>
+            </main>
+        </div>
+
+        <footer>
+            <span class="footer-logo">ニャー</span>
+            <div class="footer-links">
+                <a href="index.html">Home</a>
+                <a href="#">About</a>
+                <a href="#">Feedback</a>
+                <a href="#">Legal</a>
+                <a href="#">Contact</a>
+                <a href="faq.html">FAQ</a>
+                <a href="#">Rules</a>
+            </div>
+        </footer>
+
+        <small class="copyright">COPYRIGHT (C) 2001-2006 FUNFORUM. ALL RIGHTS RESERVED.</small>
+    </div>
+
+</body>
+
+</html>

@@ -1,0 +1,60 @@
+services:
+  postgres:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+      POSTGRES_DB: ${POSTGRES_DB}
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5433:5432"
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  backend:
+    build:
+      context: ./backend/Funforum.Api
+    restart: unless-stopped
+    depends_on:
+      postgres:
+        condition: service_healthy
+    environment:
+      ASPNETCORE_ENVIRONMENT: Production
+      ConnectionStrings__Default: "Host=postgres;Port=5432;Database=${POSTGRES_DB};Username=${POSTGRES_USER};Password=${POSTGRES_PASSWORD}"
+      Jwt__Secret: ${JWT_SECRET}
+      Cors__AllowedOrigins__0: ${FRONTEND_ORIGIN}
+      Frontend__BaseUrl: ${FRONTEND_ORIGIN}
+      SeedSuperAdmin__Username: ${SEED_SUPERADMIN_USERNAME}
+      SeedSuperAdmin__Email: ${SEED_SUPERADMIN_EMAIL}
+      SeedSuperAdmin__Password: ${SEED_SUPERADMIN_PASSWORD}
+      Google__ClientId: ${GOOGLE_CLIENT_ID:-}
+      Email__Host: ${SMTP_HOST:-}
+      Email__Port: ${SMTP_PORT:-587}
+      Email__Username: ${SMTP_USERNAME:-}
+      Email__Password: ${SMTP_PASSWORD:-}
+      Email__From: ${SMTP_FROM:-}
+      Email__FromName: ${SMTP_FROM_NAME:-Funforum}
+      Email__EnableSsl: ${SMTP_ENABLE_SSL:-true}
+      ContentLimits__MaxRepliesPerThread: ${MAX_REPLIES_PER_THREAD:-500}
+      ContentLimits__MaxImagesPerThread: ${MAX_IMAGES_PER_THREAD:-150}
+    ports:
+      - "5080:8080"
+
+  frontend:
+    build:
+      context: ./frontend
+      args:
+        VITE_GOOGLE_CLIENT_ID: ${GOOGLE_CLIENT_ID:-}
+    restart: unless-stopped
+    depends_on:
+      - backend
+    ports:
+      - "8080:80"
+
+volumes:
+  postgres_data:
